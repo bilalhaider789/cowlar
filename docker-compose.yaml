@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  server:
+    image: bilal1311/cowler-backend
+    container_name: cowlar-server
+    command: npm start
+    ports:
+      - "7000:7000"
+    networks:
+      - cowlar-network
+  client:
+    image: bilal1311/cowlar-frontend
+    container_name: cowlar-client
+    command: npm run dev
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    networks:
+      - cowlar-network
+
+networks:
+    cowlar-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local
